@@ -2,19 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<link th:replace="~{fragments :: bootstrap}">
 <title>Le nostre pizze</title>
 </head>
 <body>
 	<div>
+		<div>
+		 <form method="GET" action="/pizza">
+      		<label for="keyword">Ricerca la tua pizza:</label>
+      		<input type="text" id="keyword" name="keyword">
+      		<input type="submit" value="Invia">
+    	</form>
+	</div>
 		<h1>Le Nostre Pizze</h1>
 		<ul>
 			<li  th:each="pizza:${elencoPizze}">
-				<div th:text="${pizza.nome}"></div>
+				<a th:href="@{/pizza/{id}(id=${pizza.getId()})}">
+					<div th:text="${pizza.nome}"></div>
+				</a>
 				<div th:text="${pizza.descrizione}"></div>
 				<img th:src="${pizza.foto}" />
 				<div th:text="'prezzo' +' '+${pizza.prezzo}+'€'"></div>
+				
 			</li>
 		</ul>
 	</div>
+	
+	
+	
+	<div th:insert="~{fragments :: bootstrapScript}"></div>
 </body>
 </html>
