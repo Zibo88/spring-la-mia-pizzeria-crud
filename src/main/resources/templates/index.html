@@ -2,34 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<link th:replace="~{fragments :: bootstrap}"></link>
 <title>Le nostre pizze</title>
+<link th:replace="~{fragments :: css}">
+<link th:replace="~{fragments :: bootstrap}"></link>
+
 </head>
 <body>
-	<div>
-		<div>
-		 <form method="GET" action="/pizza">
-      		<label for="keyword">Ricerca la tua pizza:</label>
-      		<input type="text" id="keyword" name="keyword">
-      		<input type="submit" value="Invia">
-    	</form>
-	</div>
-		<h1>Le Nostre Pizze</h1>
-		<ul>
-			<li  th:each="pizza:${elencoPizze}">
-				<a th:href="@{/pizza/{id}(id=${pizza.getId()})}">
-					<div th:text="${pizza.nome}"></div>
-				</a>
-				<div th:text="${pizza.descrizione}"></div>
-				<img th:src="${pizza.foto}" />
-				<div th:text="'prezzo' +' '+${pizza.prezzo}+'€'"></div>
+	<div class="container">
+			<h1 class="verde">Le Nostre Pizze</h1>
+			<div>
+		 		<form method="GET" action="/pizza">
+      				<label for="keyword" >Ricerca la tua pizza:</label>
+      				<input type="text" id="keyword" name="keyword">
+      				<input type="submit" value="Invia">
+    			</form>
+			</div>
+		<div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 ">
+			<div class="col-6" th:each="pizza:${elencoPizze}">
+				<div class="card mt-3" >
 				
-			</li>
-		</ul>
+		
+							<a th:href="@{/pizza/{id}(id=${pizza.getId()})}">
+								<div th:text="${pizza.nome}"></div>
+							</a>
+							<div th:text="${pizza.descrizione}"></div>
+							<img th:src="${pizza.foto}" />
+							<div th:text="'prezzo' +' '+${pizza.prezzo}+'€'"></div>				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+
 	</div>
-	
-	
-	
+
 	<div th:insert="~{fragments :: bootstrapScript}"></div>
 </body>
 </html>
