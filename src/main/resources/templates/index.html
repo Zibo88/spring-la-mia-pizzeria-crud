@@ -8,7 +8,9 @@
 
 </head>
 <body>
+	
 	<div class="container">
+			<div th:insert="~{fragments :: link}"></div>
 			<h1 class="verde">Le Nostre Pizze</h1>
 			<div>
 		 		<form method="GET" action="/pizza">
@@ -20,16 +22,12 @@
 		<div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 ">
 			<div class="col-6" th:each="pizza:${elencoPizze}">
 				<div class="card mt-3" >
-				
-		
-							<a th:href="@{/pizza/{id}(id=${pizza.getId()})}">
-								<div th:text="${pizza.nome}"></div>
-							</a>
-							<div th:text="${pizza.descrizione}"></div>
-							<img th:src="${pizza.foto}" />
-							<div th:text="'prezzo' +' '+${pizza.prezzo}+'€'"></div>				
-				
-				
+					<a th:href="@{/pizza/{id}(id=${pizza.getId()})}">
+						<div th:text="${pizza.nome}"></div>
+					</a>
+					<div th:text="${pizza.descrizione}"></div>
+					<img th:src="${pizza.foto}" />
+					<div th:text="'prezzo' +' '+${pizza.prezzo}+'€'"></div>				
 				</div>
 			</div>
 			
