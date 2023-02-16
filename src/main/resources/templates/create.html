@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link th:replace="~{fragments :: css}"></link>
+<link th:replace="~{fragments :: bootstrap}"></link>
+<title>Crea una nuova pizza</title>
+
+</head>
+<body>
+	<div>
+		
+		<div class="container">
+			<div th:insert="~{fragments :: link}"></div>
+			<h1>Crea la tua Pizza</h1>
+			<div class="row">
+				<div class="col">
+					<form id="pizza-form" th:object="${pizza}" th:action="@{/pizza/create}" method="POST">
+						
+						<div class="mt-4">
+							<label for="nome">Nome</label> <br>
+							<input type="text" id="nome" th:field="*{nome}" th:errorClass="is-invalid">
+							<div th:if"${#fields.hasErrors('nome')}" class="invalid-feedback">
+								<div th:each="err: ${#fields.errors('nome')}" th:text="${err}"></div>
+							</div>
+							
+						</div>
+						
+						<div class="mt-4">
+							<label for="descrizione">Descrizione</label> <br>
+							<textarea id="descrizione" th:field="*{descrizione}"  th:errorClass="is-invalid"></textarea>
+							<div th:if"${#fields.hasErrors('descrizione')}" class="invalid-feedback">
+								<div th:each="err: ${#fields.errors('descrizione')}" th:text="${err}"></div>
+							</div>
+						</div>
+						
+						<div class="mt-4">
+							<label for="foto">Foto</label> <br>
+							<input type="text" id="foto" th:field="*{foto}"  th:errorClass="is-invalid">
+							<div th:if"${#fields.hasErrors('foto')}" class="invalid-feedback">
+								<div th:each="err: ${#fields.errors('foto')}" th:text="${err}"></div>
+							</div>
+						</div>
+						
+						<div class="mt-4">
+							<label for="prezzo">Prezzo</label> <br>
+							<input type="number" id="prezzo" th:field="*{prezzo}"  th:errorClass="is-invalid">
+							<div th:if"${#fields.hasErrors('prezzo')}" class="invalid-feedback">
+								<div th:each="err: ${#fields.errors('prezzo')}" th:text="${err}"></div>
+							</div>
+						</div>
+						
+						<input class="mt-3" type="submit" value="invia">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:insert="~{fragments :: bootstrapScript}"></div>
+</body>
+</html>
