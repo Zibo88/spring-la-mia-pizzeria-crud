@@ -20,6 +20,15 @@
 		defer></script>
 	</th:block>
 	
+	<ul th:fragment="link" >
+		<li>
+			<a  th:href="@{/pizza}">Home</a>
+		</li>
+		<li>
+			<a  th:href="@{/pizza/create}">Crea la tua Pizza</a>
+		</li>
+	</ul>
+	
 
 	<script  th:fragment="bootstrapScript" th:src="@{/webjars/bootstrap/5.2.3/js/boostrap.bundle.min.js}"></script>
 
