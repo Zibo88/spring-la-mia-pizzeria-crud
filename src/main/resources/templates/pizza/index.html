@@ -10,24 +10,44 @@
 <body>
 	
 	<div class="container">
-			<div th:insert="~{fragments :: link}"></div>
-			<h1 class="verde">Le Nostre Pizze</h1>
-			<div>
-		 		<form method="GET" action="/pizza">
-      				<label for="keyword" >Ricerca la tua pizza:</label>
-      				<input type="text" id="keyword" name="keyword">
-      				<input type="submit" value="Invia">
-    			</form>
+			
+			
+			<div class="d-flex align-items-center justify-content-between">
+				<div th:insert="~{fragments :: link}" class="mr-3"></div>
+			
+
+				<div>
+		 			<form method="GET" action="/pizza">
+      					<label for="keyword" >Ricerca la tua pizza:</label>
+      					<input type="text" id="keyword" name="keyword">
+      					<input type="submit" value="Invia">
+    				</form>
+				</div>
 			</div>
+			
+			<h1 class="verde">Le Nostre Pizze</h1>
+			
 		<div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 ">
 			<div class="col-6" th:each="pizza:${elencoPizze}">
-				<div class="card mt-3" >
+				<div class="card mt-3 p-2" >
 					<a th:href="@{/pizza/{id}(id=${pizza.getId()})}">
-						<div th:text="${pizza.nome}"></div>
+						<h3 th:text="${pizza.nome}"></h3>
 					</a>
-					<div th:text="${pizza.descrizione}"></div>
-					<img th:src="${pizza.foto}" />
-					<div th:text="'prezzo' +' '+${pizza.prezzo}+'€'"></div>				
+					<img style="height: 165px;" th:src="${pizza.foto}" />
+					<div th:if="${#strings.length(pizza.descrizione) > 40}" th:text="${#strings.substring(pizza.descrizione, 0 ,40) + '...'}"></div>
+					<div th:unless="${#strings.length(pizza.descrizione) > 40}"  th:text="${pizza.descrizione}"></div>
+				
+					<div th:text="'prezzo' +' '+${pizza.prezzo}+'€'"></div>		
+					<div>
+						<div class="d-flex mt-3" >
+							<a class="btn btn-primary me-3 " th:href="@{/pizza/edit/{id}(id=${pizza.id})}">Modifica</a>
+							
+							
+							<form th:action="@{/pizza/delete/{id}(id=${pizza.id})}" method="post">
+								<input type="submit" id="submitButton" class="btn btn-danger" value="cancella" >
+							</form>
+						</div>
+					</div>		
 				</div>
 			</div>
 			
