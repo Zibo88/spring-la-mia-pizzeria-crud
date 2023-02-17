@@ -85,7 +85,7 @@ public class PizzaController {
 		
 		pizzaRepository.save(pizzaEditForm);
 		
-		return "redirect:/pizza";
+		return "redirect:/pizza/{id}";
 	}
 	
 	//delete
