@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link th:replace="~{fragments :: css}"></link>
+<link th:replace="~{fragments :: bootstrap}"></link>
+<title>Le nostre pizze</title>
+
+</head>
+<body>
+	<div>
+		
+		<div class="container">
+			<h1>Le Nostre Pizze</h1>
+			<div class="row">
+				<div class="col">
+					<img class="card my-3">
+						<h3 th:text="${pizza.getNome()}"></h3>
+						<div th:text="${pizza.getDescrizione()}"></div>
+						<img style="width: 80%;" th:src="${pizza.getFoto()}"></img>
+						
+						<div class="d-flex mt-3 align-items-center">
+							<div th:text="'Prezzo:' +' '+${pizza.getPrezzo()}+ '€'"></div>
+							<a class="btn btn-primary mx-3" th:href="@{/pizza/edit/{id}(id=${pizza.getId()})}">Modifica</a>
+							<form th:action="@{/pizza/delete/{id}(id=${pizza.id})}" method="post">
+								<input type="submit" id="submitButton" class="btn btn-danger" value="cancella" >
+							</form>
+							<a class="btn btn-secondary mx-3" th:href="@{/pizza}">Annulla</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:insert="~{fragments :: bootstrapScript}"></div>
+</body>
+</html>
