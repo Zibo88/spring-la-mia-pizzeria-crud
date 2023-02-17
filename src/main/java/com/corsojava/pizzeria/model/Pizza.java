@@ -2,11 +2,14 @@ package com.corsojava.pizzeria.model;
 
 
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
@@ -37,8 +40,10 @@ public class Pizza {
 	private String foto;
 	
 	@NotNull
-	@Min(1)
-	private float prezzo;
+	@DecimalMin("1.00")
+	@DecimalMax("50.00")
+	
+	private BigDecimal prezzo;
 	
 	public String getNome() {
 		return nome;
@@ -59,13 +64,17 @@ public class Pizza {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	public float getPrezzo() {
+	public BigDecimal getPrezzo() {
 		return prezzo;
 	}
-	public void setPrezzo(float prezzo) {
+	public void setPrezzo(BigDecimal prezzo) {
 		this.prezzo = prezzo;
 	}
 	public Integer getId() {
 		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }
