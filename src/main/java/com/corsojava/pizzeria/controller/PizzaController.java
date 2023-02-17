@@ -22,42 +22,45 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/pizza")
 public class PizzaController {
-	
+	//repository
 	@Autowired
 	private  PizzaRepository pizzaRepository;
 	
+	//index
 	@GetMapping
 	public String index(@RequestParam(name="keyword", required = false) String keyword, Model model) {
 		List <Pizza> elencoPizze;
 		if(keyword == null) {
 			elencoPizze = pizzaRepository.findAll();
 		}else {
-			elencoPizze = pizzaRepository.findByNomeLike("%"+keyword+"%");
+			elencoPizze = pizzaRepository.findByNomeLike("%"+keyword+"%"); // cerca le pizze per nome
 		}
 		
 		model.addAttribute("elencoPizze", elencoPizze);
-		return "index";
+		return "pizza/index";
 	}
 	
+	//show
 	@GetMapping("/{id}")
 	public String show(@PathVariable("id") Integer id, Model model) {
 		Pizza  singolaPizza = pizzaRepository.getReferenceById(id);
 		model.addAttribute("pizza",singolaPizza);
-		return "pizzaDetail";
+		return "pizza/pizzaDetail";
 	}
 	
+	//create
 	@GetMapping("/create")
 	public String create(Model model) {
 		Pizza newPizza = new Pizza();
 		model.addAttribute("pizza" ,newPizza);
-		return "create";
+		return "pizza/create";
 	}
 	
 	@PostMapping("/create")
 	public String strore(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult ,Model model) {
 		
 		if(bindingResult.hasErrors()) {
-			return "/create";
+			return "pizza/create";
 		}
 		
 		pizzaRepository.save(formPizza);
@@ -65,7 +68,34 @@ public class PizzaController {
 		return "redirect:/pizza";
 	}
 	
+	//edit
+	@GetMapping("/edit/{id}")
+	public String edit(@PathVariable("id") Integer id, Model model) {
+		Pizza pizzaToUpdate = pizzaRepository.getReferenceById(id);
+		model.addAttribute("pizzaToUpdate",pizzaToUpdate);
+		return "pizza/edit";
+	}
 	
+	@PostMapping("/edit/{id}")
+	public String update(@Valid @ModelAttribute("pizzaToUpdate") Pizza pizzaEditForm,BindingResult bindingResult, Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			return "pizza/edit";
+		}
+		
+		pizzaRepository.save(pizzaEditForm);
+		
+		return "redirect:/pizza";
+	}
+	
+	//delete
+	@PostMapping("/delete/{id}")
+	public String delete(@PathVariable("id") Integer id) {
+		
+		pizzaRepository.deleteById(id);
+		
+		return "redirect:/pizza";
+	}
 	
 
 }
