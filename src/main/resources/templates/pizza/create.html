@@ -12,23 +12,25 @@
 		
 		<div class="container">
 			<div th:insert="~{fragments :: link}"></div>
-			<h1>Crea la tua Pizza</h1>
+			
 			<div class="row">
-				<div class="col">
-					<form id="pizza-form" th:object="${pizza}" th:action="@{/pizza/create}" method="POST">
+				<div class="col-12">
+				
+					<div class="create-container">
+						<h1>Crea la tua Pizza</h1>
+						<form id="pizza-form" th:object="${pizza}" th:action="@{/pizza/create}" method="POST">
 						
 						<div class="mt-4">
 							<label for="nome">Nome</label> <br>
-							<input type="text" id="nome" th:field="*{nome}" th:errorClass="is-invalid">
+							<input type="text" id="nome" th:field="*{nome}" th:errorClass="is-invalid"  class="form-control">
 							<div th:if"${#fields.hasErrors('nome')}" class="invalid-feedback">
 								<div th:each="err: ${#fields.errors('nome')}" th:text="${err}"></div>
 							</div>
-							
 						</div>
 						
 						<div class="mt-4">
 							<label for="descrizione">Descrizione</label> <br>
-							<textarea id="descrizione" th:field="*{descrizione}"  th:errorClass="is-invalid"></textarea>
+							<textarea id="descrizione" th:field="*{descrizione}"  th:errorClass="is-invalid"  class="form-control"></textarea>
 							<div th:if"${#fields.hasErrors('descrizione')}" class="invalid-feedback">
 								<div th:each="err: ${#fields.errors('descrizione')}" th:text="${err}"></div>
 							</div>
@@ -36,7 +38,7 @@
 						
 						<div class="mt-4">
 							<label for="foto">Foto</label> <br>
-							<input type="text" id="foto" th:field="*{foto}"  th:errorClass="is-invalid">
+							<input type="text" id="foto" th:field="*{foto}"  th:errorClass="is-invalid"  class="form-control">
 							<div th:if"${#fields.hasErrors('foto')}" class="invalid-feedback">
 								<div th:each="err: ${#fields.errors('foto')}" th:text="${err}"></div>
 							</div>
@@ -44,14 +46,20 @@
 						
 						<div class="mt-4">
 							<label for="prezzo">Prezzo</label> <br>
-							<input type="number" id="prezzo" th:field="*{prezzo}"  th:errorClass="is-invalid">
+							<input type="number" id="prezzo" th:field="*{prezzo}"  th:errorClass="is-invalid"  class="form-control">
 							<div th:if"${#fields.hasErrors('prezzo')}" class="invalid-feedback">
 								<div th:each="err: ${#fields.errors('prezzo')}" th:text="${err}"></div>
 							</div>
 						</div>
 						
-						<input class="mt-3" type="submit" value="invia">
-					</form>
+						<div class="d-flex align-items-center mt-3">
+							<input class="btn btn-primary me-3" type="submit" value="invia">
+							<a class="btn btn-secondary" th:href="@{/pizza}">Annulla</a>
+						</div>
+						
+						
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
